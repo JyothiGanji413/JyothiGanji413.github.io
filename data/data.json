@@ -1,0 +1,902 @@
+[
+{
+  "spending":"Military",
+  "country":"US",
+  "year":2011,
+  "value":"711338"
+},
+{
+  "spending":"Military",
+  "country":"US",
+  "year":2012,
+  "value":"684780"
+},
+{
+  "spending":"Military",
+  "country":"US",
+  "year":2013,
+  "value":"639704"
+},
+{
+  "spending":"Military",
+  "country":"US",
+  "year":2014,
+  "value":"609914"
+},
+{
+  "spending":"Military",
+  "country":"US",
+  "year":2015,
+  "value":"596104"
+},
+{
+  "spending":"Health",
+  "country":"US",
+  "year":2011,
+  "value":"253103"
+},
+{
+  "spending":"Health",
+  "country":"US",
+  "year":2012,
+  "value":"266842.1"
+},
+{
+  "spending":"Health",
+  "country":"US",
+  "year":2013,
+  "value":"274918.5"
+},
+{
+  "spending":"Health",
+  "country":"US",
+  "year":2014,
+  "value":"287619.9"
+},
+{
+  "spending":"Health",
+  "country":"US",
+  "year":2015,
+  "value":"303713.2"
+},
+{
+  "spending":"Education",
+  "country":"US",
+  "year":2011,
+  "value":"80781.71"
+},
+{
+  "spending":"Education",
+  "country":"US",
+  "year":2012,
+  "value":"84698.48"
+},
+{
+  "spending":"Education",
+  "country":"US",
+  "year":2013,
+  "value":"83225.32"
+},
+{
+  "spending":"Education",
+  "country":"US",
+  "year":2014,
+  "value":"86947.25"
+},
+{
+  "spending":"Education",
+  "country":"US",
+  "year":2015,
+  "value":"89852.06"
+},
+{
+  "spending":"Military",
+  "country":"Australia",
+  "year":2011,
+  "value":"26597.2"
+},
+{
+  "spending":"Military",
+  "country":"Australia",
+  "year":2012,
+  "value":"26216.6"
+},
+{
+  "spending":"Military",
+  "country":"Australia",
+  "year":2013,
+  "value":"24825.3"
+},
+{
+  "spending":"Military",
+  "country":"Australia",
+  "year":2014,
+  "value":"25783.7"
+},
+{
+  "spending":"Military",
+  "country":"Australia",
+  "year":2015,
+  "value":"24045.6"
+},
+{
+  "spending":"Health",
+  "country":"Australia",
+  "year":2011,
+  "value":"12643.48"
+},
+{
+  "spending":"Health",
+  "country":"Australia",
+  "year":2012,
+  "value":"13400.3"
+},
+{
+  "spending":"Health",
+  "country":"Australia",
+  "year":2013,
+  "value":"12812.09"
+},
+{
+  "spending":"Health",
+  "country":"Australia",
+  "year":2014,
+  "value":"12970.32"
+},
+{
+  "spending":"Health",
+  "country":"Australia",
+  "year":2015,
+  "value":"11583.03"
+},
+{
+  "spending":"Education",
+  "country":"Australia",
+  "year":2011,
+  "value":"7510.889"
+},
+{
+  "spending":"Education",
+  "country":"Australia",
+  "year":2012,
+  "value":"7522.197"
+},
+{
+  "spending":"Education",
+  "country":"Australia",
+  "year":2013,
+  "value":"7649.035"
+},
+{
+  "spending":"Education",
+  "country":"Australia",
+  "year":2014,
+  "value":"7411.009"
+},
+{
+  "spending":"Education",
+  "country":"Australia",
+  "year":2015,
+  "value":"6606.813"
+},
+{
+  "spending":"Military",
+  "country":"Brazil",
+  "year":2011,
+  "value":"36936"
+},
+{
+  "spending":"Military",
+  "country":"Brazil",
+  "year":2012,
+  "value":"33987"
+},
+{
+  "spending":"Military",
+  "country":"Brazil",
+  "year":2013,
+  "value":"32875"
+},
+{
+  "spending":"Military",
+  "country":"Brazil",
+  "year":2014,
+  "value":"32660"
+},
+{
+  "spending":"Military",
+  "country":"Brazil",
+  "year":2015,
+  "value":"24584"
+},
+{
+  "spending":"Health",
+  "country":"Brazil",
+  "year":2011,
+  "value":"24089.89"
+},
+{
+  "spending":"Health",
+  "country":"Brazil",
+  "year":2012,
+  "value":"22746.78"
+},
+{
+  "spending":"Health",
+  "country":"Brazil",
+  "year":2013,
+  "value":"22439.4"
+},
+{
+  "spending":"Health",
+  "country":"Brazil",
+  "year":2014,
+  "value":"25241.1"
+},
+{
+  "spending":"Health",
+  "country":"Brazil",
+  "year":2015,
+  "value":"20132.07"
+},
+{
+  "spending":"Education",
+  "country":"Brazil",
+  "year":2011,
+  "value":"14127.8"
+},
+{
+  "spending":"Education",
+  "country":"Brazil",
+  "year":2012,
+  "value":"13266.49"
+},
+{
+  "spending":"Education",
+  "country":"Brazil",
+  "year":2013,
+  "value":"12796.81"
+},
+{
+  "spending":"Education",
+  "country":"Brazil",
+  "year":2014,
+  "value":"13876.95"
+},
+{
+  "spending":"Education",
+  "country":"Brazil",
+  "year":2015,
+  "value":"10959.3"
+},
+{
+  "spending":"Military",
+  "country":"Russia",
+  "year":2011,
+  "value":"70237.5"
+},
+{
+  "spending":"Military",
+  "country":"Russia",
+  "year":2012,
+  "value":"81469.4"
+},
+{
+  "spending":"Military",
+  "country":"Russia",
+  "year":2013,
+  "value":"88352.9"
+},
+{
+  "spending":"Military",
+  "country":"Russia",
+  "year":2014,
+  "value":"84696.5"
+},
+{
+  "spending":"Military",
+  "country":"Russia",
+  "year":2015,
+  "value":"66418.7"
+},
+{
+  "spending":"Health",
+  "country":"Russia",
+  "year":2011,
+  "value":"9076.861"
+},
+{
+  "spending":"Health",
+  "country":"Russia",
+  "year":2012,
+  "value":"10045.12"
+},
+{
+  "spending":"Health",
+  "country":"Russia",
+  "year":2013,
+  "value":"10667.05"
+},
+{
+  "spending":"Health",
+  "country":"Russia",
+  "year":2014,
+  "value":"9732.613"
+},
+{
+  "spending":"Health",
+  "country":"Russia",
+  "year":2015,
+  "value":"6490.812"
+},
+{
+  "spending":"Education",
+  "country":"Russia",
+  "year":2011,
+  "value":"6783.206"
+},
+{
+  "spending":"Education",
+  "country":"Russia",
+  "year":2012,
+  "value":"7718.638"
+},
+{
+  "spending":"Education",
+  "country":"Russia",
+  "year":2013,
+  "value":"7901.724"
+},
+{
+  "spending":"Education",
+  "country":"Russia",
+  "year":2014,
+  "value":"7538.56"
+},
+{
+  "spending":"Education",
+  "country":"Russia",
+  "year":2015,
+  "value":"4715.153"
+},
+{
+  "spending":"Military",
+  "country":"India",
+  "year":2011,
+  "value":"49634"
+},
+{
+  "spending":"Military",
+  "country":"India",
+  "year":2012,
+  "value":"47217"
+},
+{
+  "spending":"Military",
+  "country":"India",
+  "year":2013,
+  "value":"47404"
+},
+{
+  "spending":"Military",
+  "country":"India",
+  "year":2014,
+  "value":"50914"
+},
+{
+  "spending":"Military",
+  "country":"India",
+  "year":2015,
+  "value":"51257"
+},
+{
+  "spending":"Health",
+  "country":"India",
+  "year":2011,
+  "value":"6197.267"
+},
+{
+  "spending":"Health",
+  "country":"India",
+  "year":2012,
+  "value":"6288.082"
+},
+{
+  "spending":"Health",
+  "country":"India",
+  "year":2013,
+  "value":"7405.773"
+},
+{
+  "spending":"Health",
+  "country":"India",
+  "year":2014,
+  "value":"7371.462"
+},
+{
+  "spending":"Health",
+  "country":"India",
+  "year":2015,
+  "value":"8017.721"
+},
+{
+  "spending":"Education",
+  "country":"India",
+  "year":2011,
+  "value":"7246.908"
+},
+{
+  "spending":"Education",
+  "country":"India",
+  "year":2012,
+  "value":"7304.47"
+},
+{
+  "spending":"Education",
+  "country":"India",
+  "year":2013,
+  "value":"7593.864"
+},
+{
+  "spending":"Education",
+  "country":"India",
+  "year":2014,
+  "value":"7857.965"
+},
+{
+  "spending":"Education",
+  "country":"India",
+  "year":2015,
+  "value":"8792.291"
+},
+{
+  "spending":"Military",
+  "country":"UK",
+  "year":2011,
+  "value":"60270.4"
+},
+{
+  "spending":"Military",
+  "country":"UK",
+  "year":2012,
+  "value":"58495.7"
+},
+{
+  "spending":"Military",
+  "country":"UK",
+  "year":2013,
+  "value":"56861.8"
+},
+{
+  "spending":"Military",
+  "country":"UK",
+  "year":2014,
+  "value":"59182.9"
+},
+{
+  "spending":"Military",
+  "country":"UK",
+  "year":2015,
+  "value":"53862.2"
+},
+{
+  "spending":"Health",
+  "country":"UK",
+  "year":2011,
+  "value":"22069.58"
+},
+{
+  "spending":"Health",
+  "country":"UK",
+  "year":2012,
+  "value":"22173.09"
+},
+{
+  "spending":"Health",
+  "country":"UK",
+  "year":2013,
+  "value":"26460.72"
+},
+{
+  "spending":"Health",
+  "country":"UK",
+  "year":2014,
+  "value":"28774.55"
+},
+{
+  "spending":"Health",
+  "country":"UK",
+  "year":2015,
+  "value":"27155.25"
+},
+{
+  "spending":"Education",
+  "country":"UK",
+  "year":2011,
+  "value":"10778.6"
+},
+{
+  "spending":"Education",
+  "country":"UK",
+  "year":2012,
+  "value":"10650.15"
+},
+{
+  "spending":"Education",
+  "country":"UK",
+  "year":2013,
+  "value":"11037.69"
+},
+{
+  "spending":"Education",
+  "country":"UK",
+  "year":2014,
+  "value":"11537.09"
+},
+{
+  "spending":"Education",
+  "country":"UK",
+  "year":2015,
+  "value":"12500.89"
+},
+{
+  "spending":"Military",
+  "country":"Germany",
+  "year":2011,
+  "value":"48140.3"
+},
+{
+  "spending":"Military",
+  "country":"Germany",
+  "year":2012,
+  "value":"46470.9"
+},
+{
+  "spending":"Military",
+  "country":"Germany",
+  "year":2013,
+  "value":"45930.5"
+},
+{
+  "spending":"Military",
+  "country":"Germany",
+  "year":2014,
+  "value":"46102.7"
+},
+{
+  "spending":"Military",
+  "country":"Germany",
+  "year":2015,
+  "value":"39812.6"
+},
+{
+  "spending":"Health",
+  "country":"Germany",
+  "year":2011,
+  "value":"39678.84"
+},
+{
+  "spending":"Health",
+  "country":"Germany",
+  "year":2012,
+  "value":"38489.77"
+},
+{
+  "spending":"Health",
+  "country":"Germany",
+  "year":2013,
+  "value":"41778.47"
+},
+{
+  "spending":"Health",
+  "country":"Germany",
+  "year":2014,
+  "value":"42097.36"
+},
+{
+  "spending":"Health",
+  "country":"Germany",
+  "year":2015,
+  "value":"36369.8"
+},
+{
+  "spending":"Education",
+  "country":"Germany",
+  "year":2011,
+  "value":"17803.65"
+},
+{
+  "spending":"Education",
+  "country":"Germany",
+  "year":2012,
+  "value":"17635.07"
+},
+{
+  "spending":"Education",
+  "country":"Germany",
+  "year":2013,
+  "value":"18889.01"
+},
+{
+  "spending":"Education",
+  "country":"Germany",
+  "year":2014,
+  "value":"18905.53"
+},
+{
+  "spending":"Education",
+  "country":"Germany",
+  "year":2015,
+  "value":"15774.2"
+},
+{
+  "spending":"Military",
+  "country":"South Korea",
+  "year":2011,
+  "value":"30991.7"
+},
+{
+  "spending":"Military",
+  "country":"South Korea",
+  "year":2012,
+  "value":"31951.8"
+},
+{
+  "spending":"Military",
+  "country":"South Korea",
+  "year":2013,
+  "value":"34311.2"
+},
+{
+  "spending":"Military",
+  "country":"South Korea",
+  "year":2014,
+  "value":"37552.3"
+},
+{
+  "spending":"Military",
+  "country":"South Korea",
+  "year":2015,
+  "value":"36570.8"
+},
+{
+  "spending":"Health",
+  "country":"South Korea",
+  "year":2011,
+  "value":"7512.438"
+},
+{
+  "spending":"Health",
+  "country":"South Korea",
+  "year":2012,
+  "value":"7910.793"
+},
+{
+  "spending":"Health",
+  "country":"South Korea",
+  "year":2013,
+  "value":"8691.64"
+},
+{
+  "spending":"Health",
+  "country":"South Korea",
+  "year":2014,
+  "value":"9780.969"
+},
+{
+  "spending":"Health",
+  "country":"South Korea",
+  "year":2015,
+  "value":"9878.392"
+},
+{
+  "spending":"Education",
+  "country":"South Korea",
+  "year":2011,
+  "value":"5494.923"
+},
+{
+  "spending":"Education",
+  "country":"South Korea",
+  "year":2012,
+  "value":"5675.449"
+},
+{
+  "spending":"Education",
+  "country":"South Korea",
+  "year":2013,
+  "value":"6514.972"
+},
+{
+  "spending":"Education",
+  "country":"South Korea",
+  "year":2014,
+  "value":"7251.725"
+},
+{
+  "spending":"Education",
+  "country":"South Korea",
+  "year":2015,
+  "value":"7098.435"
+},
+{
+  "spending":"Military",
+  "country":"Japan",
+  "year":2011,
+  "value":"60762.2"
+},
+{
+  "spending":"Military",
+  "country":"Japan",
+  "year":2012,
+  "value":"60011.5"
+},
+{
+  "spending":"Military",
+  "country":"Japan",
+  "year":2013,
+  "value":"49023.9"
+},
+{
+  "spending":"Military",
+  "country":"Japan",
+  "year":2014,
+  "value":"46881.2"
+},
+{
+  "spending":"Military",
+  "country":"Japan",
+  "year":2015,
+  "value":"42106.1"
+},
+{
+  "spending":"Health",
+  "country":"Japan",
+  "year":2011,
+  "value":"64509.3"
+},
+{
+  "spending":"Health",
+  "country":"Japan",
+  "year":2012,
+  "value":"64756.87"
+},
+{
+  "spending":"Health",
+  "country":"Japan",
+  "year":2013,
+  "value":"52904.71"
+},
+{
+  "spending":"Health",
+  "country":"Japan",
+  "year":2014,
+  "value":"49683.36"
+},
+{
+  "spending":"Health",
+  "country":"Japan",
+  "year":2015,
+  "value":"44449.68"
+},
+{
+  "spending":"Education",
+  "country":"Japan",
+  "year":2011,
+  "value":"22133.04"
+},
+{
+  "spending":"Education",
+  "country":"Japan",
+  "year":2012,
+  "value":"22157.99"
+},
+{
+  "spending":"Education",
+  "country":"Japan",
+  "year":2013,
+  "value":"17969.16"
+},
+{
+  "spending":"Education",
+  "country":"Japan",
+  "year":2014,
+  "value":"16468.96"
+},
+{
+  "spending":"Education",
+  "country":"Japan",
+  "year":2015,
+  "value":"14691.61"
+},
+{
+  "spending":"Military",
+  "country":"France",
+  "year":2011,
+  "value":"64600.9"
+},
+{
+  "spending":"Military",
+  "country":"France",
+  "year":2012,
+  "value":"60035.2"
+},
+{
+  "spending":"Military",
+  "country":"France",
+  "year":2013,
+  "value":"62417.1"
+},
+{
+  "spending":"Military",
+  "country":"France",
+  "year":2014,
+  "value":"63613.6"
+},
+{
+  "spending":"Military",
+  "country":"France",
+  "year":2015,
+  "value":"55342.1"
+},
+{
+  "spending":"Health",
+  "country":"France",
+  "year":2011,
+  "value":"31441.83"
+},
+{
+  "spending":"Health",
+  "country":"France",
+  "year":2012,
+  "value":"30893.18"
+},
+{
+  "spending":"Health",
+  "country":"France",
+  "year":2013,
+  "value":"32462.5"
+},
+{
+  "spending":"Health",
+  "country":"France",
+  "year":2014,
+  "value":"33527.49"
+},
+{
+  "spending":"Health",
+  "country":"France",
+  "year":2015,
+  "value":"27855.2"
+},
+{
+  "spending":"Education",
+  "country":"France",
+  "year":2011,
+  "value":"15499.47"
+},
+{
+  "spending":"Education",
+  "country":"France",
+  "year":2012,
+  "value":"14889.83"
+},
+{
+  "spending":"Education",
+  "country":"France",
+  "year":2013,
+  "value":"15605.04"
+},
+{
+  "spending":"Education",
+  "country":"France",
+  "year":2014,
+  "value":"15938.37"
+},
+{
+  "spending":"Education",
+  "country":"France",
+  "year":2015,
+  "value":"13233.87"
+}
+]
