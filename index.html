@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  body {font-family: Arial;}
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+  .tab button:hover {
+    background-color: #ddd;
+}
+  .tab button.active {
+    background-color: #ccc;
+}
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+}
+</style>
+</head>
+<body>
+  <h2>Jyothi Satya Sahithi Ganji - Individual Project 1</h2>
+  <p>Click on the buttons inside the tabbed menu to see tha data and analysis done</p>
+
+  <!-- Start of Tab and its options -->
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'About data')" id="defaultOpen" >Overview</button>
+    <button class="tablinks" onclick="openTab(event, 'Health')" >Health</button>
+    <button class="tablinks" onclick="openTab(event, 'Education')">Education</button>
+    <button class="tablinks" onclick="openTab(event, 'Military')">Military</button>
+    <button class="tablinks" onclick="openTab(event, 'Comparisons')">Comparisons</button>
+  </div>
+
+<!-- First Menu item in Tab = About data -->
+  <div id="About data" class="tabcontent">
+    <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        .column {
+          float: left;
+          width: 48%;
+          height: 50%;
+          padding: 10px; 
+        }
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+      </style>
+    </head>
+    <body>
+      <!-- Used div to divide the page into 2 equal parts. -->
+      <div class = "row">
+
+        <!-- First column in the tab menu "About data" which explains of the data -->
+
+        <div class="column">
+          <h2>Data</h2>
+          <p>Data Source:</p>
+          <p>SIPRI: Military Expenditure data</p>
+          <p>World Bank: Health and Education data</p>
+          <p>G-20 countries considered:USA, Australia, Brazil, Russia, India, France, United Kindgom, Germany,Japan, South Korea</p>
+          <p>Used Google API for visualizations</p>
+        </div>
+
+        <!-- Second column in the tab menu "About data" which visualizes the geographical locations of countries considered -->
+
+        <div class="column">
+          <html>
+          <head>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+            </script>
+            <script type="text/javascript">
+              google.charts.load('current', {
+                'packages':['geochart'],
+                'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+              });
+              google.charts.setOnLoadCallback(drawRegionsMap);
+
+              function drawRegionsMap() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Country'],
+                  ['Australia'],
+                  ['United States'],
+                  ['Brazil'],
+                  ['Russia'],
+                  ['India'],
+                  ['France'],
+                  ['United Kingdom'],
+                  ['Germany'],
+                  ['Japan'],
+                  ['South Korea']]);
+                var options = {
+                  colorAxis: {colors: ['green', 'blue','yellow','pink','orange','red','purple','brown','black','aqua']}
+                };
+                var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                chart.draw(data, options);
+              }
+            </script>
+          </head>
+          <body>
+            <div id="regions_div" style="width: 900px; height: 500px;">
+            </div>
+          </body>
+          </html>
+        </div>
+      </div>
+    </body>
+    </html>
+  </div>
+
+<!-- Second Menu item in Tab = "Health" data-->
+<div id="Health" class="tabcontent">
+  <style>
+  .column {
+      float: auto;
+      width: 48%;
+      height: 50%;
+      padding: 10px; 
+    }
+    .button1{
+      background-color: #4CAF50;
+      border: none;
+      color:white;
+      padding:15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin:4px 2px;
+      cursor: pointer;
+    }
+    .button2{
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+    }
+  </style>
+
+  <!-- First column item in Health tab -->
+  <div class = "column">
+    <h2> Per Person Spending Vs Per Person GDP </h2>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <body>
+      Select year:<select id="year"></select>
+      <input type="checkbox" id="sort"> Sort the data 
+      <br>
+      <br>
+      <br>
+      <!-- svg for chart -->
+      <svg id="chart" width="650" height="400"></svg>
+      <script>
+        d3.csv("data/health/heappcapita.csv").then(d => chart(d))
+        function chart(csv) {
+          // selects the required columns to visualize 
+          var keys = csv.columns.slice(5);
+          // gives the year to the dropdown to select and visalize the data for that year //
+          var year   = [...new Set(csv.map(d => d.Year))]
+          // takes the country names from data 
+          var countries = [...new Set(csv.map(d => d.Country))]
+          // dropdown of year 
+          var options = d3.select("#year").selectAll("option")
+          .data(year)
+          .enter().append("option")
+          .text(d => d)
+          // set margin for the chart
+          var svg = d3.select("#chart"),
+          margin = {top: 15, left: 40, bottom: 15, right: 35},
+          width = +svg.attr("width") - margin.left - margin.right,
+          height = +svg.attr("height") - margin.top - margin.bottom;
+
+          // scale the axis 
+          var x = d3.scaleBand()
+          .range([margin.left, width - margin.right])
+          .padding(0.1);
+
+          var y = d3.scaleLinear()
+          .rangeRound([height - margin.bottom, margin.top]);
+
+          // set the color for bar chart 
+          var z = d3.scaleOrdinal()
+          .range(["red", "green"]);
+
+          // X-axis on the graph 
+          var xAxis = svg.append("g")
+          .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+          .attr("class","x-axis");
+
+          // Y-axis on the graph 
+          var yAxis = svg.append("g")
+          .attr("transform", "translate(" + margin.left + ",0)")
+          .attr("class", "y-axis");
+
+          // Legend for the graph 
+          var legend = svg.selectAll(".legend")
+          .data(keys)
+          .enter().append("g")
+          .attr("class", "legend")
+          .attr("transform", (d, i) => `translate(${margin.left},${i * 30})`);
+
+          // text for legend 
+          legend.append("text")
+          .attr("x", width - 10)
+          .attr("y", margin.top)
+          .attr("text-anchor", "end")
+          .attr("dy", "1em")
+          .text(d => d);
+
+          // shape of legend objects 
+          legend.append("rect")
+          .attr("width", 19)
+          .attr("height", 19)
+          .attr("x", width)
+          .attr("y", margin.top)
+          .attr("fill", z)
+          .attr("stroke", z)
+          .attr("value", d => d)
+
+          // update function call 
+          update_data(d3.select("#year").property("value"), 0)
+
+          // update function 
+          function update_data(input, speed) {
+            var data = csv.filter(f => f.Year == input)
+            data.forEach(function(d) {
+              d.total = d3.sum(keys, k => +d[k])
+              return d
+            })
+
+            y.domain([0, d3.max(data, d => d3.sum(keys, k => +d[k]))]).nice();
+
+            svg.selectAll(".y-axis").transition().duration(speed)
+            .call(d3.axisLeft(y).ticks(null, "s"))
+
+            data.sort(d3.select("#sort").property("checked")
+              ? (a, b) => b.total - a.total
+              : (a, b) => countries.indexOf(a.Country) - countries.indexOf(b.Country))
+
+            x.domain(data.map(d => d.Country));
+
+            svg.selectAll(".x-axis").transition().duration(speed)
+            .call(d3.axisBottom(x).tickSizeOuter(0))
+
+            var group = svg.selectAll("g.layer")
+            .data(d3.stack().keys(keys)(data), d => d.key)
+            group.exit().remove()
+            group.enter().append("g")
+            .classed("layer", true)
+            .attr("fill", d => z(d.key));
+
+            var bars = svg.selectAll("g.layer").selectAll("rect")
+            .data(d => d, e => e.data.Country);
+            bars.exit().remove()
+            bars.enter().append("rect")
+            .attr("width", x.bandwidth())
+            .merge(bars)
+            .transition().duration(speed)
+            .attr("x", d => x(d.data.Country))
+            .attr("y", d => y(d[1]))
+            .attr("height", d => y(d[0]) - y(d[1]))
+
+            var text = svg.selectAll(".text")
+            .data(data, d => d.Country);
+
+            text.exit().remove()
+
+            text.enter().append("text")
+            .attr("class", "text")
+            .attr("text-anchor", "middle")
+            .merge(text)
+            .transition().duration(speed)
+            .attr("x", d => x(d.Country) + x.bandwidth() / 2)
+            .attr("y", d => y(d.total) - 5)
+          }
+          var select = d3.select("#year")
+          .on("change", function() {
+            update_data(this.value, 750)
+          })
+          var checkbox = d3.select("#sort")
+          .on("click", function() {
+            update_data(select.property("value"), 750)
+          })
+        }
+      </script>
+    </body>
+  </div>
+
+  <!-- Second column in Health tab -->
+  <div class = "column">
+    <h2> Spending data Vs GDP of countries</h2>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <body>
+      Select year: <select id="year1"></select>
+      <input type="checkbox" id="sort1"> Sort the data
+      <br>
+      <br>
+      <br>
+      <svg id="chart1" width="650" height="400"></svg>
+      <script>
+        d3.csv("data/health/Health_GDP.csv").then(d => chart1(d))
+        function chart1(csv) {
+          var keys = csv.columns.slice(3);
+          var year1   = [...new Set(csv.map(d => d.Year))]
+          var states = [...new Set(csv.map(d => d.State))]
+          var options = d3.select("#year1").selectAll("option")
+          .data(year1)
+          .enter().append("option")
+          .text(d => d)
+
+          var svg1 = d3.select("#chart1"),
+          margin = {top: 15, left: 40, bottom: 15, right: 35},
+          width = +svg1.attr("width") - margin.left - margin.right,
+          height = +svg1.attr("height") - margin.top - margin.bottom;
+
+          var x = d3.scaleBand()
+          .range([margin.left, width - margin.right])
+          .padding(0.1);
+
+          var y = d3.scaleLinear()
+          .rangeRound([height - margin.bottom, margin.top]);
+
+          var z = d3.scaleOrdinal()
+          .range(["steelblue", "darkorange"]);
+
+          var xAxis = svg1.append("g")
+          .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+          .attr("class","x-axis");
+
+          var yAxis = svg1.append("g")
+          .attr("transform", "translate(" + margin.left + ",0)")
+          .attr("class", "y-axis");
+
+          var legend = svg1.selectAll(".legend")
+          .data(keys)
+          .enter().append("g")
+          .attr("class", "legend")
+          .attr("transform", (d, i) => `translate(${margin.left},${i * 30})`);
+
+          legend.append("text")
+          .attr("x", width - 10)
+          .attr("y", margin.top)
+          .attr("text-anchor", "end")
+          .attr("dy", "1em")
+          .text(d => d);
+
+          legend.append("rect")
+          .attr("width", 19)
+          .attr("height", 19)
+          .attr("x", width)
+          .attr("y", margin.top)
+          .attr("fill", z)
+          .attr("stroke", z)
+          .attr("value", d => d)
+
+          update_data(d3.select("#year1").property("value"), 0)
+          function update_data(input, speed) {
+            var data = csv.filter(f => f.Year == input)
+            data.forEach(function(d) {
+              d.total = d3.sum(keys, k => +d[k])
+              return d
+            })
+            y.domain([0, d3.max(data, d => d3.sum(keys, k => +d[k]))]).nice();
+            svg1.selectAll(".y-axis").transition().duration(speed)
+            .call(d3.axisLeft(y).ticks(null, "s"))
+
+            data.sort(d3.select("#sort1").property("checked")
+            ? (a, b) => b.total - a.total
+            : (a, b) => states.indexOf(a.State) - states.indexOf(b.State))
+
+            x.domain(data.map(d => d.State));
+
+            svg1.selectAll(".x-axis").transition().duration(speed)
+            .call(d3.axisBottom(x).tickSizeOuter(0))
+
+            var group = svg1.selectAll("g.layer")
+            .data(d3.stack().keys(keys)(data), d => d.key)
+
+            group.exit().remove()
+
+            group.enter().append("g")
+            .classed("layer", true)
+            .attr("fill", d => z(d.key));
+
+            var bars = svg1.selectAll("g.layer").selectAll("rect")
+            .data(d => d, e => e.data.State);
+
+            bars.exit().remove()
+
+            bars.enter().append("rect")
+            .attr("width", x.bandwidth())
+            .merge(bars)
+            .transition().duration(speed)
+            .attr("x", d => x(d.data.State))
+            .attr("y", d => y(d[1]))
+            .attr("height", d => y(d[0]) - y(d[1]))
+
+            var text = svg1.selectAll(".text")
+            .data(data, d => d.State);
+
+            text.exit().remove()
+
+            text.enter().append("text")
+            .attr("class", "text")
+            .attr("text-anchor", "middle")
+            .merge(text)
+            .transition().duration(speed)
+            .attr("x", d => x(d.State) + x.bandwidth() / 2)
+            .attr("y", d => y(d.total) - 5)
+          }
+          var select = d3.select("#year1")
+          .on("change", function() {
+            update_data(this.value, 750)
+          })
+          var checkbox = d3.select("#sort1")
+          .on("click", function() {
+            update_data(select.property("value"), 750)
+          })
+        }
+      </script>
+    </body>
+  </div>
+  <div align = "center">
+    <div>
+      <dialog id="first" style="background-color: #F4FFEF;border: 1px dotted black;">
+        <h2>Health Data Analysis</h2>
+        <h3>Per person Spending Vs Per person GDP</h3>
+        <p>United States stood in first place in all 5 years followed by France and Germany.</p>
+        <p>France and Germany managed to stay in second and third positions although they interchanged in some years.</p>
+        <h3>Spending data Vs GDP</h3>
+        <p>United States stood in first place in all 5 years followed by Japan and Germany</p>
+        <p>Japan and Germany stood in second and third positions in all 5 years eventhough there is decrease in the trend in some years.</p>
+        <button id ="hide">Close</button>
+      </dialog>
+      <button class = "button1 button2" id="health-analysis">Analysis</button>
+    </div>
+    <script type="text/javascript">
+      (function(){
+        var dialog = document.getElementById('first');
+        document.getElementById('health-analysis').onclick=function(){
+          dialog.show();
+        };
+        document.getElementById('hide').onclick=function(){
+          dialog.close();
+        };
+      })();
+    </script>
+  </div>
+</div>
+
+<!-- Third Menu item in Tab = Education -->
+<div id="Education" class="tabcontent">
+  <style>
+    .column {
+      float: auto;
+      width: 48%;
+      height: 50%;
+      padding: 10px; 
+    }
+    .button1{
+      background-color: #4CAF50;
+      border: none;
+      color:white;
+      padding:15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin:4px 2px;
+      cursor: pointer;
+    }
+    .button2{
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+    }
+  </style>
+  <div class = "column">
+    <h2> Spending data Vs GDP of countries</h2>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <body>
+      Select year: <select id="year4"></select>
+      <input type="checkbox" id="sort4"> Sort the data 
+      <br>
+      <br>
+      <br>
+      <svg id="chart4" width="650" height="400"></svg>
+      <script>
+        d3.csv("data/education/EducationGDP.csv").then(d => chart4(d))
+        function chart4(csv) {
+          var keys = csv.columns.slice(3);
+          var year4   = [...new Set(csv.map(d => d.Year))]
+          var states = [...new Set(csv.map(d => d.State))]
+          var options = d3.select("#year4").selectAll("option")
+            .data(year4)
+            .enter().append("option")
+            .text(d => d)
+
+          var svg4 = d3.select("#chart4"),
+            margin = {top: 15, left: 40, bottom: 15, right: 35},
+            width = +svg4.attr("width") - margin.left - margin.right,
+            height = +svg4.attr("height") - margin.top - margin.bottom;
+          var x = d3.scaleBand()
+            .range([margin.left, width - margin.right])
+            .padding(0.1);
+          var y = d3.scaleLinear()
+            .rangeRound([height - margin.bottom, margin.top]);
+          var z = d3.scaleOrdinal()
+            .range(["steelblue", "darkorange"]);
+          var xAxis = svg4.append("g")
+            .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+            .attr("class","x-axis");
+          var yAxis = svg4.append("g")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .attr("class", "y-axis");
+          var legend = svg4.selectAll(".legend")
+            .data(keys)
+          .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", (d, i) => `translate(${margin.left},${i * 30})`);
+          legend.append("text")
+            .attr("x", width - 10)
+            .attr("y", margin.top)
+            .attr("text-anchor", "end")
+            .attr("dy", "1em")
+            .text(d => d);
+
+          legend.append("rect")
+            .attr("width", 19)
+            .attr("height", 19)
+            .attr("x", width)
+            .attr("y", margin.top)
+            .attr("fill", z)
+            .attr("stroke", z)
+            .attr("value", d => d)
+          update_data(d3.select("#year4").property("value"), 0)
+          function update_data(input, speed) {
+            var data = csv.filter(f => f.Year == input)
+            data.forEach(function(d) {
+              d.total = d3.sum(keys, k => +d[k])
+              return d
+            })
+            y.domain([0, d3.max(data, d => d3.sum(keys, k => +d[k]))]).nice();
+            svg4.selectAll(".y-axis").transition().duration(speed)
+              .call(d3.axisLeft(y).ticks(null, "s"))
+            data.sort(d3.select("#sort4").property("checked")
+              ? (a, b) => b.total - a.total
+              : (a, b) => states.indexOf(a.State) - states.indexOf(b.State))
+            x.domain(data.map(d => d.State));
+            svg4.selectAll(".x-axis").transition().duration(speed)
+              .call(d3.axisBottom(x).tickSizeOuter(0))
+            var group = svg4.selectAll("g.layer")
+              .data(d3.stack().keys(keys)(data), d => d.key)
+            group.exit().remove()
+            group.enter().append("g")
+              .classed("layer", true)
+              .attr("fill", d => z(d.key));
+            var bars = svg4.selectAll("g.layer").selectAll("rect")
+              .data(d => d, e => e.data.State);
+            bars.exit().remove()
+            bars.enter().append("rect")
+              .attr("width", x.bandwidth())
+              .merge(bars)
+            .transition().duration(speed)
+              .attr("x", d => x(d.data.State))
+              .attr("y", d => y(d[1]))
+              .attr("height", d => y(d[0]) - y(d[1]))
+            var text = svg4.selectAll(".text")
+              .data(data, d => d.State);
+            text.exit().remove()
+            text.enter().append("text")
+              .attr("class", "text")
+              .attr("text-anchor", "middle")
+              .merge(text)
+            .transition().duration(speed)
+              .attr("x", d => x(d.State) + x.bandwidth() / 2)
+              .attr("y", d => y(d.total) - 5)
+            }
+            var select = d3.select("#year4")
+            .on("change", function() {
+              update_data(this.value, 750)
+            })
+            var checkbox = d3.select("#sort4")
+            .on("click", function() {
+              update_data(select.property("value"), 750)
+            })
+          }
+      </script>
+    </body>
+  </div>
+
+  <!-- Second column in Tab "Education" -->
+  <div class = "column">
+    <h2> Per Person Spending Vs Per Person GDP </h2>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <body>
+      Select year: <select id="year5"></select>
+      <input type="checkbox" id="sort5"> Sort the data
+      <br>
+      <br>
+      <br>
+      <svg id="chart5" width="650" height="400"></svg>
+      <script>
+        d3.csv("data/education/eduppcapita.csv").then(d => chart5(d))
+        function chart5(csv) {
+          var keys = csv.columns.slice(5);
+          var year5   = [...new Set(csv.map(d => d.Year))]
+          var countries = [...new Set(csv.map(d => d.Country))]
+          var options = d3.select("#year5").selectAll("option")
+            .data(year5)
+            .enter().append("option")
+            .text(d => d)
+          var svg5 = d3.select("#chart5"),
+            margin = {top: 15, left: 40, bottom: 15, right: 35},
+            width = +svg5.attr("width") - margin.left - margin.right,
+            height = +svg5.attr("height") - margin.top - margin.bottom;
+          var x = d3.scaleBand()
+            .range([margin.left, width - margin.right])
+            .padding(0.1);
+          var y = d3.scaleLinear()
+            .rangeRound([height - margin.bottom, margin.top]);
+          var z = d3.scaleOrdinal()
+            .range(["red", "green"]);
+          var xAxis = svg5.append("g")
+            .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+            .attr("class","x-axis");
+          var yAxis = svg5.append("g")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .attr("class", "y-axis");
+          var legend = svg5.selectAll(".legend")
+            .data(keys)
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", (d, i) => `translate(${margin.left},${i * 30})`);
+          legend.append("text")
+            .attr("x", width - 10)
+            .attr("y", margin.top)
+            .attr("text-anchor", "end")
+            .attr("dy", "1em")
+            .text(d => d);
+          legend.append("rect")
+            .attr("width", 19)
+            .attr("height", 19)
+            .attr("x", width)
+            .attr("y", margin.top)
+            .attr("fill", z)
+            .attr("stroke", z)
+            .attr("value", d => d)
+          update_data(d3.select("#year5").property("value"), 0)
+          function update_data(input, speed) {
+            var data = csv.filter(f => f.Year == input)
+            data.forEach(function(d) {
+              d.total = d3.sum(keys, k => +d[k])
+              return d
+            })
+            y.domain([0, d3.max(data, d => d3.sum(keys, k => +d[k]))]).nice();
+            svg5.selectAll(".y-axis").transition().duration(speed)
+              .call(d3.axisLeft(y).ticks(null, "s"))
+            data.sort(d3.select("#sort5").property("checked")
+              ? (a, b) => b.total - a.total
+              : (a, b) => countries.indexOf(a.Country) - countries.indexOf(b.Country))
+            x.domain(data.map(d => d.Country));
+            svg5.selectAll(".x-axis").transition().duration(speed)
+              .call(d3.axisBottom(x).tickSizeOuter(0))
+            var group = svg5.selectAll("g.layer")
+              .data(d3.stack().keys(keys)(data), d => d.key)
+            group.exit().remove()
+            group.enter().append("g")
+              .classed("layer", true)
+              .attr("fill", d => z(d.key));
+            var bars = svg5.selectAll("g.layer").selectAll("rect")
+              .data(d => d, e => e.data.Country);
+            bars.exit().remove()
+            bars.enter().append("rect")
+              .attr("width", x.bandwidth())
+              .merge(bars)
+              .transition().duration(speed)
+              .attr("x", d => x(d.data.Country))
+              .attr("y", d => y(d[1]))
+              .attr("height", d => y(d[0]) - y(d[1]))
+            var text = svg5.selectAll(".text")
+              .data(data, d => d.Country);
+            text.exit().remove()
+            text.enter().append("text")
+              .attr("class", "text")
+              .attr("text-anchor", "middle")
+              .merge(text)
+              .transition().duration(speed)
+              .attr("x", d => x(d.Country) + x.bandwidth() / 2)
+              .attr("y", d => y(d.total) - 5)
+            }
+            var select = d3.select("#year5")
+              .on("change", function() {
+                update_data(this.value, 750)
+              })
+            var checkbox = d3.select("#sort5")
+                .on("click", function() {
+                update_data(select.property("value"), 750)
+              })
+          }
+      </script>
+    </body>
+  </div>
+  <div align = "center">
+    <div>
+      <dialog id="second" style="background-color: #F4FFEF;border: 1px dotted black;">
+        <h2>Education Data Analysis</h2>
+        <h3>Spending Data Vs GDP</h3>
+        <p>United States occupied first position except in 2014.</p>
+        <p>In 2014, GDP and Education expenditure of Germany increased but there was huge fall in 2015.</p>
+        <h3>Per person Spending Vs Per person GDP</h3>
+        <p>In 2011, 2012, 2013 Australia stood first when comparing per person spending and per person GDP.</p>
+        <p>In 2014 Germany occupied first place which can also be seen in GDP and Expenditure comparison.</p>
+        <p>In 2015, United States occupied first place moving Germany and Australia to second and third places.</p>
+        <button id ="hide1">Close</button>
+      </dialog>
+      <button class = "button1 button2" id="education-analysis">Analysis</button>
+    </div>
+    <script type="text/javascript">
+      (function(){
+        var dialog = document.getElementById('second');
+        document.getElementById('education-analysis').onclick=function(){
+          dialog.show();
+        };
+        document.getElementById('hide1').onclick=function(){
+          dialog.close();
+        };
+      })();
+    </script>
+  </div>
+</div>
+
+<!-- Third Menu item in Tab = Military-->
+<div id="Military" class="tabcontent">
+  <style>
+    .column {
+      float: auto;
+      width: 48%;
+      height: 50%;
+      padding: 10px; 
+    }
+    .button1{
+      background-color: #4CAF50;
+      border: none;
+      color:white;
+      padding:15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin:4px 2px;
+      cursor: pointer;
+    }
+    .button2{
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+    }
+  </style>
+  <div class = "column">
+    <h2> Spending data Vs GDP of countries</h2>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <body>
+      Select year: <select id="year2"></select>
+      <input type="checkbox" id="sort2"> Sort the data 
+      <br>
+      <br>
+      <br>
+      <svg id="chart2" width="650" height="400"></svg>
+      <script>
+      d3.csv("data/military/MilitaryGDP.csv").then(d => chart2(d))
+      function chart2(csv) {
+        var keys = csv.columns.slice(3);
+        var year2   = [...new Set(csv.map(d => d.Year))]
+        var states = [...new Set(csv.map(d => d.State))]
+        var options = d3.select("#year2").selectAll("option")
+          .data(year2)
+        .enter().append("option")
+          .text(d => d)
+        var svg2 = d3.select("#chart2"),
+          margin = {top: 15, left: 40, bottom: 15, right: 35},
+          width = +svg2.attr("width") - margin.left - margin.right,
+          height = +svg2.attr("height") - margin.top - margin.bottom;
+        var x = d3.scaleBand()
+          .range([margin.left, width - margin.right])
+          .padding(0.1);
+        var y = d3.scaleLinear()
+          .rangeRound([height - margin.bottom, margin.top]);
+
+        var z = d3.scaleOrdinal()
+          .range(["steelblue", "darkorange"]);
+        var xAxis = svg2.append("g")
+          .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+          .attr("class","x-axis");
+        var yAxis = svg2.append("g")
+          .attr("transform", "translate(" + margin.left + ",0)")
+          .attr("class", "y-axis");
+        var legend = svg2.selectAll(".legend")
+          .data(keys)
+        .enter().append("g")
+          .attr("class", "legend")
+          .attr("transform", (d, i) => `translate(${margin.left},${i * 30})`);
+        legend.append("text")
+          .attr("x", width - 10)
+          .attr("y", margin.top)
+          .attr("text-anchor", "end")
+          .attr("dy", "1em")
+          .text(d => d);
+
+        legend.append("rect")
+          .attr("width", 19)
+          .attr("height", 19)
+          .attr("x", width)
+          .attr("y", margin.top)
+          .attr("fill", z)
+          .attr("stroke", z)
+          .attr("value", d => d)
+        update_data(d3.select("#year2").property("value"), 0)
+        function update_data(input, speed) {
+          var data = csv.filter(f => f.Year == input)
+          data.forEach(function(d) {
+            d.total = d3.sum(keys, k => +d[k])
+            return d
+          })
+          y.domain([0, d3.max(data, d => d3.sum(keys, k => +d[k]))]).nice();
+          svg2.selectAll(".y-axis").transition().duration(speed)
+            .call(d3.axisLeft(y).ticks(null, "s"))
+          data.sort(d3.select("#sort2").property("checked")
+            ? (a, b) => b.total - a.total
+            : (a, b) => states.indexOf(a.State) - states.indexOf(b.State))
+          x.domain(data.map(d => d.State));
+          svg2.selectAll(".x-axis").transition().duration(speed)
+            .call(d3.axisBottom(x).tickSizeOuter(0))
+          var group = svg2.selectAll("g.layer")
+            .data(d3.stack().keys(keys)(data), d => d.key)
+          group.exit().remove()
+          group.enter().append("g")
+            .classed("layer", true)
+            .attr("fill", d => z(d.key));
+          var bars = svg2.selectAll("g.layer").selectAll("rect")
+            .data(d => d, e => e.data.State);
+          bars.exit().remove()
+          bars.enter().append("rect")
+            .attr("width", x.bandwidth())
+            .merge(bars)
+          .transition().duration(speed)
+            .attr("x", d => x(d.data.State))
+            .attr("y", d => y(d[1]))
+            .attr("height", d => y(d[0]) - y(d[1]))
+          var text = svg2.selectAll(".text")
+            .data(data, d => d.State);
+          text.exit().remove()
+          text.enter().append("text")
+            .attr("class", "text")
+            .attr("text-anchor", "middle")
+            .merge(text)
+          .transition().duration(speed)
+            .attr("x", d => x(d.State) + x.bandwidth() / 2)
+            .attr("y", d => y(d.total) - 5)
+          }
+          var select = d3.select("#year2")
+            .on("change", function() {
+              update_data(this.value, 750)
+            })
+          var checkbox = d3.select("#sort2")
+            .on("click", function() {
+              update_data(select.property("value"), 750)
+            })
+          }
+      </script>
+    </body>
+  </div>
+
+  <!-- Second column in Tab "Military" -->
+  <div class = "column">
+    <h2> Per Person Spending Vs Per Person GDP </h2>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <body>
+      Select year: <select id="year3"></select>
+      <input type="checkbox" id="sort3"> Sort the data
+      <br>
+      <br>
+      <br>
+      <svg id="chart3" width="650" height="400"></svg>
+      <script>
+        d3.csv("data/military/milppcapita.csv").then(d => chart3(d))
+        function chart3(csv) {
+          var keys = csv.columns.slice(5);
+          var year   = [...new Set(csv.map(d => d.Year))]
+          var countries = [...new Set(csv.map(d => d.Country))]
+          var options = d3.select("#year3").selectAll("option")
+            .data(year)
+          .enter().append("option")
+            .text(d => d)
+          var svg3 = d3.select("#chart3"),
+            margin = {top: 15, left: 40, bottom: 15, right: 35},
+            width = +svg3.attr("width") - margin.left - margin.right,
+            height = +svg3.attr("height") - margin.top - margin.bottom;
+          var x = d3.scaleBand()
+            .range([margin.left, width - margin.right])
+            .padding(0.1);
+          var y = d3.scaleLinear()
+            .rangeRound([height - margin.bottom, margin.top]);
+          var z = d3.scaleOrdinal()
+            .range(["red", "green"]);
+          var xAxis = svg3.append("g")
+            .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+            .attr("class","x-axis");
+          var yAxis = svg3.append("g")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .attr("class", "y-axis");
+          var legend = svg3.selectAll(".legend")
+            .data(keys)
+          .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", (d, i) => `translate(${margin.left},${i * 30})`);
+          legend.append("text")
+            .attr("x", width - 10)
+            .attr("y", margin.top)
+            .attr("text-anchor", "end")
+            .attr("dy", "1em")
+            .text(d => d);
+          legend.append("rect")
+            .attr("width", 19)
+            .attr("height", 19)
+            .attr("x", width)
+            .attr("y", margin.top)
+            .attr("fill", z)
+            .attr("stroke", z)
+            .attr("value", d => d)
+          update_data(d3.select("#year3").property("value"), 0)
+          function update_data(input, speed) {
+            var data = csv.filter(f => f.Year == input)
+            data.forEach(function(d) {
+              d.total = d3.sum(keys, k => +d[k])
+              return d
+            })
+            y.domain([0, d3.max(data, d => d3.sum(keys, k => +d[k]))]).nice();
+            svg3.selectAll(".y-axis").transition().duration(speed)
+              .call(d3.axisLeft(y).ticks(null, "s"))
+            data.sort(d3.select("#sort3").property("checked")
+              ? (a, b) => b.total - a.total
+              : (a, b) => countries.indexOf(a.Country) - countries.indexOf(b.Country))
+            x.domain(data.map(d => d.Country));
+            svg3.selectAll(".x-axis").transition().duration(speed)
+              .call(d3.axisBottom(x).tickSizeOuter(0))
+            var group = svg3.selectAll("g.layer")
+              .data(d3.stack().keys(keys)(data), d => d.key)
+            group.exit().remove()
+            group.enter().append("g")
+              .classed("layer", true)
+              .attr("fill", d => z(d.key));
+            var bars = svg3.selectAll("g.layer").selectAll("rect")
+              .data(d => d, e => e.data.Country);
+            bars.exit().remove()
+            bars.enter().append("rect")
+              .attr("width", x.bandwidth())
+              .merge(bars)
+            .transition().duration(speed)
+              .attr("x", d => x(d.data.Country))
+              .attr("y", d => y(d[1]))
+              .attr("height", d => y(d[0]) - y(d[1]))
+            var text = svg3.selectAll(".text")
+              .data(data, d => d.Country);
+            text.exit().remove()
+            text.enter().append("text")
+              .attr("class", "text")
+              .attr("text-anchor", "middle")
+              .merge(text)
+            .transition().duration(speed)
+              .attr("x", d => x(d.Country) + x.bandwidth() / 2)
+              .attr("y", d => y(d.total) - 5)
+            }
+            var select = d3.select("#year3")
+              .on("change", function() {
+                update_data(this.value, 750)
+              })
+            var checkbox = d3.select("#sort3")
+              .on("click", function() {
+                update_data(select.property("value"), 750)
+              })
+            }
+      </script>
+    </body>
+  </div>
+  <div align = "center">
+    <div>
+      <dialog id="third" style="background-color: #F4FFEF;border: 1px dotted black;">
+        <h2>Military Data Analysis</h2>
+        <h3>Spending Vs GDP</h3>
+        <p>United States occupied first place.</p>
+        <p>In 2011, 2012, 2013, 2014 rank change between United Kingdom, France, Brazil and Russia can be observed.</p>
+        <p>But in 2015, India imporved its expenditure on military and improved its rank in the bar graph.</p>
+        <h3>Per person Spending Vs Per person GDP</h3>
+        <p>In 2011 and 2012, Japan's expenditure and GDP per person is more compared to South Korea which changed in next 3 years.</p>
+        <button id ="hide2">Close</button>
+      </dialog>
+      <button class = "button1 button2" id="military-analysis">Analysis</button>
+    </div>
+    <script type="text/javascript">
+      (function(){
+        var dialog = document.getElementById('third');
+        document.getElementById('military-analysis').onclick=function(){
+          dialog.show();
+        };
+        document.getElementById('hide2').onclick=function(){
+          dialog.close();
+        };
+      })();
+    </script>
+  </div>
+</div>
+
+<!-- Fifth Menu item in Tab = Comparisons -->
+<div id = "Comparisons"  class="tabcontent">
+<style>
+    .column {
+      margin: auto;
+      width: 48%;
+      height: 50%;
+      padding: 10px; 
+    }
+    
+    .axis path, .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .dot {
+      stroke: #000;
+    }
+
+    .tooltip {
+      position: absolute;
+      width: 200px;
+      height: 28px;
+      pointer-events: none;
+    }
+    .center{
+      margin:auto;
+      width:60%;
+    }
+    .button1{
+      background-color: #4CAF50;
+      border: none;
+      color:white;
+      padding:15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin:4px 2px;
+      cursor: pointer;
+    }
+    .button2{
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+    }
+    </style>
+    <body>
+      <div align="center">
+      <button class = "button1 button2" onclick="window.location.href ='data/comparisons.html'">Education Vs Military Vs Health</button>
+      <script>
+        function myFunction() {
+          window.location.href = "data/comparisons.html";
+        }
+      </script>
+    </div>
+      <div class="column">
+        <h2>Top 3 fast growing nations by Health</h2>
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <div id="my_dataviz_health"></div>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script>
+        var margin = {top: 20, right:50, bottom: 30, left: 60},
+            width = 660 - margin.left - margin.right,
+            height = 450 - margin.top - margin.bottom;
+        var svg6 = d3.select("#my_dataviz_health")
+          .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+
+        d3.csv("data/health/health fast.csv", function(data) {
+            var allGroup = ["UK","India","South_Korea"]
+            var dataReady = allGroup.map( function(grpName) { 
+              return {
+                name: grpName,
+                values: data.map(function(d) {
+                  return {time: d.Year, value: +d[grpName]};
+                })
+              };
+            });
+            var myColor = d3.scaleOrdinal()
+              .domain(allGroup)
+              .range(d3.schemeSet2);
+
+            // X axis
+            var x = d3.scaleLinear()
+              .domain(d3.extent(data, function(d){
+            return d.Year;}))
+              .range([ 0, width ]);
+            svg6.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
+            svg6.append("text")             
+              .attr("transform",
+                    "translate(" + (width/2) + " ," + 
+                                   (height + 30) + ")")
+              .style("text-anchor", "middle")
+              .text("Year"); 
+
+            // Y axis
+            var y = d3.scaleLinear()
+              .domain( [6000,30000])
+              .range([ height, 0 ]);
+            svg6.append("g")
+              .call(d3.axisLeft(y));
+            svg6.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", -5 - margin.left)
+              .attr("x",0 - (height / 2))
+              .attr("dy", "1em")
+              .style("text-anchor", "middle")
+              .text("Health Expenditure");
+
+
+            // lines
+            var line = d3.line()
+              .x(function(d) { return x(+d.time) })
+              .y(function(d) { return y(+d.value) })
+            svg6.selectAll("myLines")
+              .data(dataReady)
+              .enter()
+              .append("path")
+                .attr("class",function(d){return d.name})
+                .attr("d", function(d){ return line(d.values) } )
+                .attr("stroke", function(d){ return myColor(d.name) })
+                .style("stroke-width", 4)
+                .style("fill", "none")
+
+            // points
+            svg6
+              .selectAll("myDots")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .style("fill", function(d){ return myColor(d.name) })
+                .attr("class",function(d){ return d.name})
+              .selectAll("myPoints")
+              .data(function(d){ return d.values })
+              .enter()
+              .append("circle")
+                .attr("cx", function(d) { return x(d.time) } )
+                .attr("cy", function(d) { return y(d.value) } )
+                .attr("r", 5)
+                .attr("stroke", "white")
+
+            // legend at the end of each line
+            svg6
+              .selectAll("myLabels")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .append("text")
+                  .attr("class",function(d){ return d.name })
+                  .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
+                  .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
+                  .attr("x", 12) // shift the text a bit more right
+                  .text(function(d) { return d.name; })
+                  .style("fill", function(d){ return myColor(d.name) })
+                  .style("font-size", 15)
+
+            //Interactive legend
+            svg6
+              .selectAll("myLegend")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .append("text")
+                  .attr('x',function(d,i){return 30+i*85})
+                  .attr('y',30)
+                  .text(function(d){return d.name;})
+                  .style("fill",function(d){return myColor(d.name)})
+                  .style("font-size",15)
+                .on("click",function(d){
+                  currentOpacity = d3.selectAll("."+d.name).style("opacity")
+                    d3.selectAll("."+d.name).transition().style("opacity",currentOpacity == 1 ? 0:1)
+                })
+
+          })
+      </script>
+    </div>
+    <div class="column">
+      <h2>Top 3 fast growing nations by Military</h2>
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <div id="my_dataviz_military"></div>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script>
+        var margin = {top: 20, right:60, bottom: 30, left: 60},
+            width = 660 - margin.left - margin.right,
+            height = 450 - margin.top - margin.bottom;
+        var svg7 = d3.select("#my_dataviz_military")
+          .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+
+        d3.csv("data/military/Military fast.csv", function(data) {
+            var allGroup = ["India","South_Korea","Russia"]
+            var dataReady = allGroup.map( function(grpName) { 
+              return {
+                name: grpName,
+                values: data.map(function(d) {
+                  return {time: d.Year, value: +d[grpName]};
+                })
+              };
+            });
+            var myColor = d3.scaleOrdinal()
+              .domain(allGroup)
+              .range(d3.schemeSet2);
+
+            // X axis
+            var x = d3.scaleLinear()
+              .domain(d3.extent(data, function(d){
+            return d.Year;}))
+              .range([ 0, width ]);
+            svg7.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
+            svg7.append("text")             
+              .attr("transform",
+                    "translate(" + (width/2) + " ," + 
+                                   (height + 30) + ")")
+              .style("text-anchor", "middle")
+              .text("Year"); 
+
+            // Y axis
+            var y = d3.scaleLinear()
+              .domain( [29000,90000])
+              .range([ height, 0 ]);
+            svg7.append("g")
+              .call(d3.axisLeft(y));
+            svg7.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", -5 - margin.left)
+              .attr("x",0 - (height / 2))
+              .attr("dy", "1em")
+              .style("text-anchor", "middle")
+              .text("Military Expenditure");
+
+
+            // lines
+            var line = d3.line()
+              .x(function(d) { return x(+d.time) })
+              .y(function(d) { return y(+d.value) })
+            svg7.selectAll("myLines")
+              .data(dataReady)
+              .enter()
+              .append("path")
+                .attr("class",function(d){return d.name})
+                .attr("d", function(d){ return line(d.values) } )
+                .attr("stroke", function(d){ return myColor(d.name) })
+                .style("stroke-width", 4)
+                .style("fill", "none")
+
+            // points
+            svg7
+              .selectAll("myDots")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .style("fill", function(d){ return myColor(d.name) })
+                .attr("class",function(d){ return d.name})
+              .selectAll("myPoints")
+              .data(function(d){ return d.values })
+              .enter()
+              .append("circle")
+                .attr("cx", function(d) { return x(d.time) } )
+                .attr("cy", function(d) { return y(d.value) } )
+                .attr("r", 5)
+                .attr("stroke", "white")
+
+            // legend at the end of each line
+            svg7
+              .selectAll("myLabels")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .append("text")
+                  .attr("class",function(d){ return d.name })
+                  .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
+                  .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
+                  .attr("x", 12) // shift the text a bit more right
+                  .text(function(d) { return d.name; })
+                  .style("fill", function(d){ return myColor(d.name) })
+                  .style("font-size", 15)
+
+            //Interactive legend
+            svg7
+              .selectAll("myLegend")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .append("text")
+                  .attr('x',function(d,i){return 30+i*150})
+                  .attr('y',30)
+                  .text(function(d){return d.name;})
+                  .style("fill",function(d){return myColor(d.name)})
+                  .style("font-size",15)
+                .on("click",function(d){
+                  currentOpacity = d3.selectAll("."+d.name).style("opacity")
+                    d3.selectAll("."+d.name).transition().style("opacity",currentOpacity == 1 ? 0:1)
+                })
+
+          })
+      </script>
+    </div>
+    <br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div align="center">
+      <h2>Top 3 fast growing nations by Education</h2>
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <div id="my_dataviz_education"></div>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script>
+        var margin = {top: 20, right:150, bottom: 30, left: 60},
+            width = 760 - margin.left - margin.right,
+            height = 450 - margin.top - margin.bottom;
+        var svg8 = d3.select("#my_dataviz_education")
+          .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+
+        d3.csv("data/education/education fast.csv", function(data) {
+            var allGroup = ["India","South_Korea","UK"]
+            var dataReady = allGroup.map( function(grpName) { 
+              return {
+                name: grpName,
+                values: data.map(function(d) {
+                  return {time: d.Year, value: +d[grpName]};
+                })
+              };
+            });
+            var myColor = d3.scaleOrdinal()
+              .domain(allGroup)
+              .range(d3.schemeSet2);
+
+            // X axis
+            var x = d3.scaleLinear()
+              .domain(d3.extent(data, function(d){
+            return d.Year;}))
+              .range([ 0, width ]);
+            svg8.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
+            svg8.append("text")             
+              .attr("transform",
+                    "translate(" + (width/2) + " ," + 
+                                   (height + 30) + ")")
+              .style("text-anchor", "middle")
+              .text("Year"); 
+
+            //Y axis
+            var y = d3.scaleLinear()
+              .domain( [5000,13000])
+              .range([ height, 0 ]);
+            svg8.append("g")
+              .call(d3.axisLeft(y));
+            svg8.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", -5 - margin.left)
+              .attr("x",0 - (height / 2))
+              .attr("dy", "1em")
+              .style("text-anchor", "middle")
+              .text("Education Expenditure");
+
+            // lines
+            var line = d3.line()
+              .x(function(d) { return x(+d.time) })
+              .y(function(d) { return y(+d.value) })
+            svg8.selectAll("myLines")
+              .data(dataReady)
+              .enter()
+              .append("path")
+                .attr("class",function(d){return d.name})
+                .attr("d", function(d){ return line(d.values) } )
+                .attr("stroke", function(d){ return myColor(d.name) })
+                .style("stroke-width", 4)
+                .style("fill", "none")
+
+            // Add the points
+            svg8
+              .selectAll("myDots")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .style("fill", function(d){ return myColor(d.name) })
+                .attr("class",function(d){ return d.name})
+              .selectAll("myPoints")
+              .data(function(d){ return d.values })
+              .enter()
+              .append("circle")
+                .attr("cx", function(d) { return x(d.time) } )
+                .attr("cy", function(d) { return y(d.value) } )
+                .attr("r", 5)
+                .attr("stroke", "white")
+
+            // legend at the end of each line
+            svg8
+              .selectAll("myLabels")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .append("text")
+                  .attr("class",function(d){ return d.name })
+                  .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
+                  .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
+                  .attr("x", 12) // shift the text a bit more right
+                  .text(function(d) { return d.name; })
+                  .style("fill", function(d){ return myColor(d.name) })
+                  .style("font-size", 15)
+
+            //Interactive legend
+            svg8
+              .selectAll("myLegend")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .append("text")
+                  .attr('x',function(d,i){return 30+i*130})
+                  .attr('y',30)
+                  .text(function(d){return d.name;})
+                  .style("fill",function(d){return myColor(d.name)})
+                  .style("font-size",15)
+                .on("click",function(d){
+                  currentOpacity = d3.selectAll("."+d.name).style("opacity")
+                    d3.selectAll("."+d.name).transition().style("opacity",currentOpacity == 1 ? 0:1)
+                })
+
+          })
+      </script>
+    </div> 
+    <br><br><br>
+    <div align = "center">
+    <div>
+      <dialog id="last" style="background-color: #F4FFEF;border: 1px dotted black;">
+        <h2>Conclusion</h2>
+        <p>India and South Korea can be conluded as fast growing nations in all three aspects Health, Education and Military.</p>
+        <p>When Health, Education and Military of all nations are considered, every nation had Military expenditure as top spending except Japan which had Health expenditure on the top</p>
+        <p>Overall, United States is the top nation in all the aspects with high spending in almost all years.</p>
+        <button id ="hidel">Close</button>
+      </dialog>
+      <button class = "button1 button2" id="conclusion">Conclusion</button>
+    </div>
+    <script type="text/javascript">
+      (function(){
+        var dialog = document.getElementById('last');
+        document.getElementById('conclusion').onclick=function(){
+          dialog.show();
+        };
+        document.getElementById('hidel').onclick=function(){
+          dialog.close();
+        };
+      })();
+    </script>
+  </div>   
+  </body>
+</div>
+<script>
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+// This line makes one tab to open by default when launched
+document.getElementById("defaultOpen").click();
+</script>
+   
+</body>
+</html> 
